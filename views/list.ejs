@@ -5,13 +5,19 @@
 
 <div class="box">
 
-    <% for(var i=0;i<addItems.length;i++){ %>
-        <div class="item">
-            <input type="checkbox">
-            <p><%= addItems[i] %></p>
-        </div>
-    <% } %>
-
+    <form action="/delete" method="POST">
+        <!-- 用ejs遍历addItems的所以元素 -->
+        <% addItems.forEach(function(eachItem){ %>
+            <div class="item">
+                <!-- onChange可以在checkbox改变时提交数据 -->
+                <input type="checkbox" name="checkbox" value="<%= eachItem._id %>" onChange="this.form.submit()">
+                <p><%= eachItem.name %></p>
+                <input type="hidden" name="list" value="<%= listItem  %>">
+            </div>
+        <% }); %>
+    </form>
+   
+        
     <form action="/" method="POST"  class="item">
         <input type="text" name="newItem" autocomplete="off" placeholder="New Item">
         <button type="submit" name="list" value=<%= listItem %> >+</button>
